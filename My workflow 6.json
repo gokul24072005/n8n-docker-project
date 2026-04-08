@@ -1,0 +1,162 @@
+{
+  "name": "My workflow 6",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "maxOutputTokens": 2048
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "7cb09565-3fb2-40ba-a15f-ebaff8713755",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "x3kr8n0ITCVGry0i",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        208
+      ],
+      "id": "dad479e1-43cb-458f-b4fa-c5bf4550ef61",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "d7bc229b-5fc3-428b-9e92-96cf42eda89b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "content": "email sent through an email.",
+        "height": 112,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "718c043f-00d6-4633-b919-72defe299191",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -64,
+        -16
+      ],
+      "id": "f0f674f1-09d1-4652-9f02-d394356fd65a",
+      "name": "When chat message received",
+      "webhookId": "525dc397-4e73-43f9-b8ff-651e91ddac3a"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        368,
+        208
+      ],
+      "id": "bd83d16e-3802-4ea0-b794-8196027c0a7c",
+      "name": "Send a message in Gmail",
+      "webhookId": "6dad234b-e65f-4919-b812-4f12c65c7bac",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "TsGB2NgSoPLEoaro",
+          "name": "Gmail account 6"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "d32586f2-c3af-4af6-90fa-89d0606d8723",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "16f82a8e7408393bc97ba6ed74f9b215deb4e02bb70d9a634275fad7672f16c1"
+  },
+  "id": "853instIqaAmiE6M",
+  "tags": []
+}
